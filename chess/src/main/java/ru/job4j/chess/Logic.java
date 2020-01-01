@@ -27,8 +27,9 @@ public class Logic {
         if (index != -1) {
             Cell[] steps = this.figures[index].way(source, dest);
             if (steps.length > 0 && steps[steps.length - 1].equals(dest)) {
-                rst = true;
-                this.figures[index] = this.figures[index].copy(dest);
+                if (rst = this.Free(steps)) {
+                    this.figures[index] = this.figures[index].copy(dest);
+                }
             }
         }
         return rst;
@@ -48,6 +49,16 @@ public class Logic {
                 rst = index;
                 break;
             }
+        }
+        return rst;
+    }
+
+    public boolean Free(Cell[] cells) {
+        boolean rst = false;
+        for (Cell cell: cells) {
+            rst = this.findBy(cell) == -1;
+            if (!rst)
+                break;
         }
         return rst;
     }
